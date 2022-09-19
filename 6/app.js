@@ -1,6 +1,6 @@
 const express = require("express");
-const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
+const morgan = require("morgan"); // 클라이언트에서 어떤요청이 왔는지 확인 가능 예 GET / 200
+const cookieParser = require("cookie-parser");// 쿠키 객체로 파싱
 const session = require("express-session");
 const dotenv = require("dotenv");
 const path = require("path");
@@ -10,11 +10,11 @@ const app = express()
 
 app.set('port', process.env.PORT || 3000); // 속성 추가  전역변수
 app.use(morgan('dev'));
-app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, 'public-3030'))); // 정적파일 제공하는 라우터 역할, 서버 구조를 예측할수 없어서 보안에 좋음
+// body-parser req.body 객체로 만들어주는 미들웨어
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COKKIE_SECRET));
-console.log(process.env.COOKIE_SECRET);
 
 app.use(session({
     resave: false,
